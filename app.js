@@ -119,11 +119,12 @@ app.get(
 app.get("/api/documents/createRecap/:id/", recapController.createRecap);
 
 // Setup of a default catch-all route that sends back a message in JSON format.
-app.get("/", (req, res) =>
-  res.status(200).send({
-    message: "These are not the pages you are looking for... :)"
-  })
-);
+// app.get("/", (req, res) =>
+//   res.status(200).send({
+//     message: "These are not the pages you are looking for... :)"
+//   })
+// );
+app.use("/*", staticFiles);
 
 let port = process.env.PORT || 4848;
 
