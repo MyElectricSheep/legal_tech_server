@@ -124,6 +124,7 @@ app.get("/api/documents/createRecap/:id/", recapController.createRecap);
 //     message: "These are not the pages you are looking for... :)"
 //   })
 // );
+
 app.use("/*", staticFiles);
 
 let port = process.env.PORT || 4848;
