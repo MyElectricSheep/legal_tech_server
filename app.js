@@ -10,10 +10,6 @@ const upload = multer({ dest: "tmp/" });
 const path = require("path");
 const models = require("./models");
 
-// const algo = require('./algotest')
-
-// const router = express.Router();
-
 // Gets all the controllers to be used
 const cabinetControllers = require("./controllers").cabinets;
 const creanciersController = require("./controllers").creanciers;
@@ -41,14 +37,12 @@ app.use(cors());
 // Parses the body of any request catched
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
 
+const staticFiles = express.static(path.join(__dirname, "../../client/build"));
+app.use(staticFiles);
 
-// app.get('/aled', (req, res) => {
-//   algo.getCalculInteretsTotal().then(result => {
-//       res.json(result)
-//   })
-// })
+const publicFolder = express.static(path.join(__dirname, "public"));
+app.use(publicFolder);
 
 // CRUD routes for the Cabinet
 app.post("/api/cabinet", cabinetControllers.create);
@@ -84,9 +78,7 @@ app.put("/api/debiteurs/:debiteurId", debiteursController.update);
 app.delete("/api/debiteurs/:debiteurId", debiteursController.destroy);
 
 // CRUD routes for the Factures
-
 app.get("/api/factures/:factureId", facturesController.get);
-
 app.get("/api/factures", facturesController.list);
 app.post("/api/factures", facturesController.create);
 app.put("/api/factures/:factureId", facturesController.update);
@@ -113,7 +105,6 @@ app.delete("/api/partiels/:partielId", partielsController.destroy);
 // CRUD routes for the Actions
 
 app.get("/api/actions/:actionId/", actionsController.get);
-
 app.get("/api/actions", actionsController.list);
 app.post("/api/actions", actionsController.create);
 app.put("/api/actions/:actionId", actionsController.update);
@@ -121,15 +112,21 @@ app.delete("/api/actions/:actionId", actionsController.destroy);
 
 // Documents creation
 app.get("/api/documents/createMed/:id/", medController.createMed);
-app.get("/api/documents/createInjonction/:id/",injonctionController.createInjonction);
+app.get(
+  "/api/documents/createInjonction/:id/",
+  injonctionController.createInjonction
+);
 app.get("/api/documents/createRecap/:id/", recapController.createRecap);
 
 // Setup of a default catch-all route that sends back a message in JSON format.
 app.get("/", (req, res) =>
   res.status(200).send({
-    message: "Welcome to the beginning of nothingness."
+    message: "These are not the pages you are looking for... :)"
   })
 );
-models.sequelize.sync().then(() => app.listen(4848));
+
+let port = process.env.PORT || 4848;
+
+models.sequelize.sync().then(() => app.listen(port));
 
 module.exports = app;

@@ -32,7 +32,7 @@ const mesAvoirs = [];
 
 // let facture;
 const truc = async () => {
-  const test = await axios.get("http://localhost:4848/api/factures/16");
+  const test = await axios.get("/api/factures/16");
   const lesAcomptes = test.data.acomptes;
   const lesAvoirs = test.data.avoirs;
 
