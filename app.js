@@ -125,7 +125,11 @@ app.get("/api/documents/createRecap/:id/", recapController.createRecap);
 //   })
 // );
 
-app.use("/*", staticFiles);
+// app.use("/*", staticFiles);
+
+app.get("/", (req, res) =>
+  res.sendFile(path.join(__dirname, "../../client/build", "index.html"))
+);
 
 let port = process.env.PORT || 4848;
 
