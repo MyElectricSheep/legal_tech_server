@@ -304,6 +304,7 @@ module.exports = {
                 result.creancier.denomination_sociale,
               denomination_sociale_debiteur:
                 result.debiteur.denomination_sociale,
+              date: today,
               factures: result.factures.map((facture, index) => {
                 return {
                   numero_facture: facture.num_facture,
@@ -355,7 +356,9 @@ module.exports = {
               montant_acompte: "",
               montant_total_interets: montantTotalInteretsToutesFactures,
               loi_entreprise_française:
-                "Art. L 441-6 du Code de commerce : Sauf disposition contraire qui ne peut toutefois fixer un taux inférieur à trois fois le taux d'intérêt légal, ce taux est égal au taux d'intérêt appliqué par la BCE majoré de 10 points de pourcentage (...) Les pénalités de retard sont exigibles sans qu'un rappel soit nécessaire. / Décret n° 2012-1115 du 2 octobre 2012 A compter du 1er janvier 2013, tout professionnel en situation de retard de paiement devient de plein droit débiteur, à l'égard de son créancier, (...) d'une indemnité forfaitaire pour frais de recouvrement de 40 euros.",
+                "En application de l’article L. 441-6 du Code de commerce, les factures impayées font courir des intérêts légaux au taux de refinancement de la BCE majoré de 10 points, à compter de leur date d’échéance sans qu’un rappel soit nécessaire, outre le paiement d’une indemnité forfaitaire pour frais de recouvrement de quarante euros par facture impayée et le remboursement de tous autres frais complémentaires de recouvrement.",
+              loi_entreprise_italienne:
+                "En application du décret législatif italien du 9 novembre 2012 n°192 y compris ses modifications ultérieures, les factures impayées font courir des intérêts légaux au taux de refinancement de la BCE majoré de 8 points, à compter de leur date d’échéance sans qu’un rappel soit nécessaire, outre le paiement d’une indemnité forfaitaire pour frais de recouvrement de quarante euros par facture impayée et le remboursement de tous autres frais complémentaires de recouvrement.",
               isEntrepriseFrançaise: result.taux_interets === 10 ? true : false,
               isEntrepriseItalienne: result.taux_interets === 8 ? true : false
             });
