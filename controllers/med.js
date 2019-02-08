@@ -14,7 +14,7 @@ const path = require("path");
 
 module.exports = {
   createMed: (req, res) => {
-    console.log("yolo", req.params);
+    // console.log("yolo", req.params);
     models.action
       .findByPk(req.params.id, {
         include: [
@@ -244,7 +244,7 @@ module.exports = {
             let anneeEnChiffres = myTodayMoment.format("YYYY");
             let fullDate = `${jourEnChiffres} ${moisEnLettres} ${anneeEnChiffres}`;
             // console.log(fullDate);
-            today_file = dd + "-" + mm + "-" + yyyy; // date for the file name
+            today_file = yyyy + mm +  dd; // date for the file name
 
             let lesAvoirs = [];
 
@@ -433,13 +433,13 @@ module.exports = {
               .writeFile(
                 path.resolve(
                   __dirname,
-                  `../public/documents/${today_file} - Mise en demeure - ${creancier_filename} contre ${debiteur_filename}.docx`
+                  `../public/documents/${today_file} - Mise en demeure - ${creancier_filename} c. ${debiteur_filename}.docx`
                 ),
                 buf
               )
               .then(() =>
                 res.send(
-                  `${today_file} - Mise en demeure - ${creancier_filename} contre ${debiteur_filename}.docx`
+                  `${today_file} - Mise en demeure - ${creancier_filename} c. ${debiteur_filename}.docx`
                 )
               )
               .catch(err => console.log(err));
