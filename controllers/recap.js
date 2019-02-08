@@ -296,7 +296,7 @@ module.exports = {
             }
 
             today = dd + "/" + mm + "/" + yyyy; // date for the word document
-            today_file = dd + "-" + mm + "-" + yyyy; // date for the file name
+            today_file = yyyy + mm + dd; // date for the file name
             // console.log(myFinalAlgoResultSorted)
 
             doc.setData({
@@ -319,6 +319,7 @@ module.exports = {
                   montant_creance:
                     myFinalAlgoResultSorted[index][`facture_${index}`][0]
                       .creance_sur_cette_periode,
+
                   infoRecap: myFinalAlgoResultSorted[index][
                     `facture_${index}`
                   ].map(newRecap => {
@@ -389,13 +390,13 @@ module.exports = {
               .writeFile(
                 path.resolve(
                   __dirname,
-                  `../public/documents/${today_file} - Tableau de calcul des intérêts - ${creancier_filename} contre ${debiteur_filename}.docx`
+                  `../public/documents/${today_file} - Calcul intérêts - ${creancier_filename} c. ${debiteur_filename}.docx`
                 ),
                 buf
               )
               .then(() =>
                 res.send(
-                  `${today_file} - Tableau calcul intérêts - ${creancier_filename} contre ${debiteur_filename}.docx`
+                  `${today_file} - Calcul intérêts - ${creancier_filename} c. ${debiteur_filename}.docx`
                 )
               )
               .catch(err => console.log(err));
