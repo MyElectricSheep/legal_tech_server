@@ -10,6 +10,12 @@ const fsPromises = fs.promises;
 
 const path = require("path");
 
+const replaceDotsByCommas = float => {
+  let stringifiedFloat = float.toString();
+  let replacedNumber = stringifiedFloat.replace(".", ",");
+  return replacedNumber;
+};
+
 module.exports = {
   createRecap: (req, res) => {
     models.action
@@ -310,15 +316,16 @@ module.exports = {
                   numero_facture: facture.num_facture,
                   date_facture: facture.date_facture,
                   echeance_facture: facture.echeance_facture,
-                  montant_facture_HT: facture.montant_ht,
+                  montant_facture_HT: replaceDotsByCommas(facture.montant_ht),
                   isFacturesHT:
                     result.option_ttc_factures === false ? true : false,
-                  montant_facture_TTC: facture.montant_ttc,
+                  montant_facture_TTC: replaceDotsByCommas(facture.montant_ttc),
                   isFacturesTTC:
                     result.option_ttc_factures === true ? true : false,
-                  montant_creance:
+                  montant_creance: replaceDotsByCommas(
                     myFinalAlgoResultSorted[index][`facture_${index}`][0]
-                      .creance_sur_cette_periode,
+                      .creance_sur_cette_periode
+                  ),
 
                   infoRecap: myFinalAlgoResultSorted[index][
                     `facture_${index}`
@@ -331,8 +338,12 @@ module.exports = {
                       tauxIt: newRecap.taux_interet_applique + 8,
                       isTauxFr: result.taux_interets === 10 ? true : false,
                       isTauxIt: result.taux_interets === 8 ? true : false,
-                      montant_interets: newRecap.interets_periode.toFixed(2),
-                      montant_creance: newRecap.creance_sur_cette_periode
+                      montant_interets: replaceDotsByCommas(
+                        newRecap.interets_periode.toFixed(2)
+                      ),
+                      montant_creance: replaceDotsByCommas(
+                        newRecap.creance_sur_cette_periode
+                      )
                     };
                   })
                 };
@@ -355,7 +366,9 @@ module.exports = {
               // })[0],
               date_reglement_acompte: "",
               montant_acompte: "",
-              montant_total_interets: montantTotalInteretsToutesFactures,
+              montant_total_interets: replaceDotsByCommas(
+                montantTotalInteretsToutesFactures
+              ),
               loi_entreprise_française:
                 "En application de l’article L. 441-6 du Code de commerce, les factures impayées font courir des intérêts légaux au taux de refinancement de la BCE majoré de 10 points, à compter de leur date d’échéance sans qu’un rappel soit nécessaire, outre le paiement d’une indemnité forfaitaire pour frais de recouvrement de quarante euros par facture impayée et le remboursement de tous autres frais complémentaires de recouvrement.",
               loi_entreprise_italienne:

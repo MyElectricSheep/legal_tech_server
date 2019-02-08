@@ -12,6 +12,12 @@ const fsPromises = fs.promises;
 
 const path = require("path");
 
+const replaceDotsByCommas = float => {
+  let stringifiedFloat = float.toString();
+  let replacedNumber = stringifiedFloat.replace(".", ",");
+  return replacedNumber;
+};
+
 module.exports = {
   createMed: (req, res) => {
     // console.log("yolo", req.params);
@@ -244,7 +250,7 @@ module.exports = {
             let anneeEnChiffres = myTodayMoment.format("YYYY");
             let fullDate = `${jourEnChiffres} ${moisEnLettres} ${anneeEnChiffres}`;
             // console.log(fullDate);
-            today_file = yyyy + mm +  dd; // date for the file name
+            today_file = yyyy + mm + dd; // date for the file name
 
             let lesAvoirs = [];
 
@@ -311,10 +317,10 @@ module.exports = {
                 return {
                   numero_facture: facture.num_facture,
                   date_facture: facture.date_facture,
-                  montant_facture_ht: facture.montant_ht,
+                  montant_facture_ht: replaceDotsByCommas(facture.montant_ht),
                   isFacturesHT:
                     result.option_ttc_factures === false ? true : false,
-                  montant_facture_ttc: facture.montant_ttc,
+                  montant_facture_ttc: replaceDotsByCommas(facture.montant_ttc),
                   isFacturesTTC:
                     result.option_ttc_factures === true ? true : false,
                   echeance_facture: facture.echeance_facture,
@@ -337,10 +343,10 @@ module.exports = {
                 return {
                   numero_avoir: avoir.num_avoir,
                   date_avoir: avoir.date_avoir,
-                  montant_avoir_ht: avoir.montant_ht,
+                  montant_avoir_ht: replaceDotsByCommas(avoir.montant_ht),
                   isAvoirsHT:
                     result.option_ttc_factures === false ? true : false,
-                  montant_avoir_ttc: avoir.montant_ttc,
+                  montant_avoir_ttc: replaceDotsByCommas(avoir.montant_ttc),
                   isAvoirsTTC:
                     result.option_ttc_factures === true ? true : false
                 };
@@ -349,12 +355,12 @@ module.exports = {
                 return {
                   numero_acompte: acompte.num_acompte,
                   date_acompte: acompte.date_acompte,
-                  montant_acompte_ht: acompte.montant_ht,
+                  montant_acompte_ht: replaceDotsByCommas(acompte.montant_ht),
                   isAcomptesHT:
                     result.option_ttc_factures == false
                       ? acompte.montant_ht
                       : false,
-                  montant_acompte_ttc: acompte.montant_ttc,
+                  montant_acompte_ttc: replaceDotsByCommas(acompte.montant_ttc),
                   isAcomptesTTC:
                     result.option_ttc_factures == true
                       ? acompte.montant_ttc
@@ -365,20 +371,24 @@ module.exports = {
                 return {
                   numero_partiel: partiel.num_partiel,
                   date_partiel: partiel.date_partiel,
-                  montant_partiel_ht: partiel.montant_ht,
+                  montant_partiel_ht: replaceDotsByCommas(partiel.montant_ht),
                   isPartielsHT:
                     result.option_ttc_factures == false
                       ? partiel.montant_ht
                       : false,
-                  montant_partiel_ttc: partiel.montant_ttc,
+                  montant_partiel_ttc: replaceDotsByCommas(partiel.montant_ttc),
                   isPartielsTTC:
                     result.option_ttc_factures == true
                       ? partiel.montant_ttc
                       : false
                 };
               }),
-              calcul_creance_principale_HT: result.calcul_solde_du,
-              calcul_creance_principale_TTC: result.calcul_total_creance,
+              calcul_creance_principale_HT: replaceDotsByCommas(
+                result.calcul_solde_du
+              ),
+              calcul_creance_principale_TTC: replaceDotsByCommas(
+                result.calcul_total_creance
+              ),
               isCreanceHT: result.option_ttc_factures === false ? true : false,
               isCreanceTTC: result.option_ttc_factures === true ? true : false,
               isProduitsServices:
@@ -397,14 +407,18 @@ module.exports = {
                 "En application du décret législatif italien du 9 novembre 2012 n°192 y compris ses modifications ultérieures, les factures impayées font courir des intérêts légaux au taux de refinancement de la BCE majoré de 8 points, à compter de leur date d’échéance sans qu’un rappel soit nécessaire, outre le paiement d’une indemnité forfaitaire pour frais de recouvrement de quarante euros par facture impayée et le remboursement de tous autres frais complémentaires de recouvrement.",
               isEntrepriseFrançaise: result.taux_interets === 10 ? true : false,
               isEntrepriseItalienne: result.taux_interets === 8 ? true : false,
-              calcul_total_interets: myFinalInterestSum,
-              montant_honoraires: result.honoraires,
+              calcul_total_interets: replaceDotsByCommas(myFinalInterestSum),
+              montant_honoraires: replaceDotsByCommas(result.honoraires),
               isMontantHono: result.honoraires !== 0 ? true : false,
               isHonorairesHT: result.option_ttc_hono === false ? true : false,
               isHonorairesTTC: result.option_ttc_hono === true ? true : false,
-              total_creance_principale_TTC: totalCreanceTTC.toFixed(2),
-              total_creance_principale_HT: totalCreanceHT.toFixed(2),
-              frais: fraisRecouvrement
+              total_creance_principale_TTC: replaceDotsByCommas(
+                totalCreanceTTC.toFixed(2)
+              ),
+              total_creance_principale_HT: replaceDotsByCommas(
+                totalCreanceHT.toFixed(2)
+              ),
+              frais: replaceDotsByCommas(fraisRecouvrement)
             });
 
             // debtor's name for the filename
