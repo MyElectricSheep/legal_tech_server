@@ -293,6 +293,9 @@ module.exports = {
             let dd = today.getDate();
             let mm = today.getMonth() + 1; // january is 0...
             let yyyy = today.getFullYear();
+            let stringifiedYear = yyyy.toString();
+            let replacedYear = stringifiedYear.replace("20", "");
+            yyyy = parseInt(replacedYear);
 
             if (dd < 10) {
               dd = "0" + dd;
