@@ -235,6 +235,7 @@ module.exports = {
             let dd = today.getDate();
             let mm = today.getMonth() + 1; // january is 0...
             let yyyy = today.getFullYear();
+            let zzzz = today.getFullYear();
             let stringifiedYear = yyyy.toString();
             let replacedYear = stringifiedYear.replace("20", "");
             yyyy = parseInt(replacedYear);
@@ -247,7 +248,8 @@ module.exports = {
             }
 
             today = dd + "/" + mm + "/" + yyyy; // date for the word document
-            let myTodayMoment = moment(today, "DD/MM/YYYY", true);
+            let today2 = dd + "/" + mm + "/" + zzzz; // date to be converted to letters
+            let myTodayMoment = moment(today2, "DD/MM/YYYY", true);
             let moisEnLettres = myTodayMoment.format("MMMM");
             let jourEnChiffres = myTodayMoment.format("Do");
             let anneeEnChiffres = myTodayMoment.format("YYYY");
