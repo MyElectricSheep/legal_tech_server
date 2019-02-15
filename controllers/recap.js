@@ -329,8 +329,9 @@ module.exports = {
                   isFacturesTTC:
                     result.option_ttc_factures === true ? true : false,
                   montant_creance: replaceDotsByCommas(
-                    myFinalAlgoResultSorted[index][`facture_${index}`][0]
-                      .creance_sur_cette_periode
+                    myFinalAlgoResultSorted[index][
+                      `facture_${index}`
+                    ][0].creance_sur_cette_periode.toFixed(2)
                   ),
 
                   infoRecap: myFinalAlgoResultSorted[index][
@@ -348,7 +349,7 @@ module.exports = {
                         newRecap.interets_periode.toFixed(2)
                       ),
                       montant_creance: replaceDotsByCommas(
-                        newRecap.creance_sur_cette_periode
+                        newRecap.creance_sur_cette_periode.toFixed(2)
                       )
                     };
                   })
