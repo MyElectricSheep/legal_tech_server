@@ -43,6 +43,7 @@ module.exports = {
         ]
       })
       .then(async result => {
+        let dateFinaleCalcul = result.date;
         let myFinalAlgoResult = [];
         let myFinalAlgoResultSorted = [];
         let myFinalAlgoResultSortedNoNumber = [];
@@ -315,7 +316,7 @@ module.exports = {
                 result.creancier.denomination_sociale,
               denomination_sociale_debiteur:
                 result.debiteur.denomination_sociale,
-              date: today2,
+              date: dateFinaleCalcul,
               factures: result.factures.map((facture, index) => {
                 return {
                   numero_facture: facture.num_facture,
