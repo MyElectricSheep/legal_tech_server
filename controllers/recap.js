@@ -191,8 +191,8 @@ module.exports = {
                 "DD/MM/YYYY",
                 true
               );
-              let mySorted = dateDebutPremierItem.diff(dateDebutSecondItem) + 1;
-              return mySorted;
+              let mySorted = dateDebutPremierItem.diff(dateDebutSecondItem);
+              return +mySorted;
             }
           );
 
