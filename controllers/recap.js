@@ -322,10 +322,14 @@ module.exports = {
                   numero_facture: facture.num_facture,
                   date_facture: facture.date_facture,
                   echeance_facture: facture.echeance_facture,
-                  montant_facture_HT: replaceDotsByCommas(facture.montant_ht),
+                  montant_facture_HT: replaceDotsByCommas(
+                    facture.montant_ht.toFixed(2)
+                  ),
                   isFacturesHT:
                     result.option_ttc_factures === false ? true : false,
-                  montant_facture_TTC: replaceDotsByCommas(facture.montant_ttc),
+                  montant_facture_TTC: replaceDotsByCommas(
+                    facture.montant_ttc.toFixed(2)
+                  ),
                   isFacturesTTC:
                     result.option_ttc_factures === true ? true : false,
                   montant_creance: replaceDotsByCommas(
