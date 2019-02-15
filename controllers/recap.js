@@ -176,28 +176,62 @@ module.exports = {
         // interets_periode: 346,
         // taux_interet_applique: 0 }]
 
+        /////// TO BE RESTORED IF CHANGE OF SORTING ALGO DOES NOT FUNCTION //////
+
+        // for (let i = 0; i < myFinalAlgoResult.length; i++) {
+        //   let numberFacture = "facture_";
+
+        //   let mySortedResult = myFinalAlgoResult[i].facture.sort(
+        //     (item, otherItem) => {
+        //       dateDebutPremierItem = moment(
+        //         item.date_debut,
+        //         "DD/MM/YYYY",
+        //         true
+        //       );
+        //       dateDebutSecondItem = moment(
+        //         otherItem.date_debut,
+        //         "DD/MM/YYYY",
+        //         true
+        //       );
+        //       let mySorted = dateDebutPremierItem.diff(dateDebutSecondItem);
+        //       return +mySorted;
+        //     }
+        //   );
+
+        //   myFinalAlgoResultSorted.push({ [numberFacture + i]: mySortedResult });
+        //   myFinalAlgoResultSortedNoNumber.push({ facture: mySortedResult });
+        // }
+
+        //////// EN OF RESTORE //////////////
+
+        const reverseDateRepresentation = date => {
+          let parts = date.split("/");
+          return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        };
+
+        const sortedDates = [];
+
         for (let i = 0; i < myFinalAlgoResult.length; i++) {
+          sortedDates.push(myFinalAlgoResult[i].facture[0].date_debut);
+        }
+
+        let superSorted = sortedDates
+          .map(reverseDateRepresentation)
+          .sort()
+          .map(reverseDateRepresentation);
+
+        for (let i = 0; i < superSorted.length; i++) {
           let numberFacture = "facture_";
-
-          let mySortedResult = myFinalAlgoResult[i].facture.sort(
-            (item, otherItem) => {
-              dateDebutPremierItem = moment(
-                item.date_debut,
-                "DD/MM/YYYY",
-                true
-              );
-              dateDebutSecondItem = moment(
-                otherItem.date_debut,
-                "DD/MM/YYYY",
-                true
-              );
-              let mySorted = dateDebutPremierItem.diff(dateDebutSecondItem);
-              return +mySorted;
+          for (let j = 0; j < myFinalAlgoResult.length; j++) {
+            if (superSorted[i] === myFinalAlgoResult[j].facture[0].date_debut) {
+              myFinalAlgoResultSorted.push({
+                [numberFacture + i]: myFinalAlgoResult[j].facture[0]
+              });
+              myFinalAlgoResultSortedNoNumber.push({
+                facture: myFinalAlgoResult[j].facture[0]
+              });
             }
-          );
-
-          myFinalAlgoResultSorted.push({ [numberFacture + i]: mySortedResult });
-          myFinalAlgoResultSortedNoNumber.push({ facture: mySortedResult });
+          }
         }
 
         //   let infosRecap = [];
