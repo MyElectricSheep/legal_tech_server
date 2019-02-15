@@ -192,7 +192,7 @@ module.exports = {
                 true
               );
               let mySorted = dateDebutPremierItem.diff(dateDebutSecondItem) + 1;
-              return +mySorted;
+              return mySorted;
             }
           );
 
