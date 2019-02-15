@@ -68,10 +68,10 @@ for (let i = 0; i < superSorted.length; i++) {
   for (let j = 0; j < myFinalAlgoResult.length; j++) {
     if (superSorted[i] === myFinalAlgoResult[j].facture[0].date_debut) {
       myFinalAlgoResultSorted.push({
-        [numberFacture + i]: myFinalAlgoResult[j]
+        [numberFacture + i]: myFinalAlgoResult[j].facture
       });
       myFinalAlgoResultSortedNoNumber.push({
-        facture: myFinalAlgoResult[j]
+        facture: myFinalAlgoResult[j].facture
       });
     }
   }
