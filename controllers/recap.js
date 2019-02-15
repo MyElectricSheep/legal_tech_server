@@ -225,10 +225,10 @@ module.exports = {
           for (let j = 0; j < myFinalAlgoResult.length; j++) {
             if (superSorted[i] === myFinalAlgoResult[j].facture[0].date_debut) {
               myFinalAlgoResultSorted.push({
-                [numberFacture + i]: myFinalAlgoResult[j].facture
+                [numberFacture + i]: myFinalAlgoResult[j]
               });
               myFinalAlgoResultSortedNoNumber.push({
-                facture: myFinalAlgoResult[j].facture
+                facture: myFinalAlgoResult[j]
               });
             }
           }
