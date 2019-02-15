@@ -293,6 +293,7 @@ module.exports = {
             let dd = today.getDate();
             let mm = today.getMonth() + 1; // january is 0...
             let yyyy = today.getFullYear();
+            let zzzz = today.getFullYear();
             let stringifiedYear = yyyy.toString();
             let replacedYear = stringifiedYear.replace("20", "");
             yyyy = parseInt(replacedYear);
@@ -305,6 +306,7 @@ module.exports = {
             }
 
             today = dd + "/" + mm + "/" + yyyy; // date for the word document
+            let today2 = dd + "/" + mm + "/" + zzzz; // date for the subtitle
             today_file = yyyy + mm + dd; // date for the file name
             // console.log(myFinalAlgoResultSorted)
 
@@ -313,7 +315,7 @@ module.exports = {
                 result.creancier.denomination_sociale,
               denomination_sociale_debiteur:
                 result.debiteur.denomination_sociale,
-              date: today,
+              date: today2,
               factures: result.factures.map((facture, index) => {
                 return {
                   numero_facture: facture.num_facture,
